@@ -1,0 +1,192 @@
+﻿<%@ Master Language="VB" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<script runat="server">
+
+    Dim objCon As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AmlakConnectionString").ToString)
+    Dim dst As DataSet = New DataSet()
+
+    Protected Sub btnEnter_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+        Dim dat As SqlDataAdapter = New SqlDataAdapter("SELECT * FROM tblUser where UserName=@UserName AND Password=@Password AND Active=1", objCon)
+        dat.SelectCommand.CommandType = CommandType.Text
+        dat.SelectCommand.Parameters.AddWithValue("@UserName", txtUsername.Text)
+        dat.SelectCommand.Parameters.AddWithValue("@Password", txtPassword.Text)
+        dat.Fill(dst, "tblUser")
+        
+        If dst.Tables("tblUser").Rows.Count <> 0 Then
+            Dim dr As DataRow = dst.Tables("tblUser").Rows(0)
+            Session.Add("UserName", dr("Username"))
+            lblErrorMsg.Text = ""
+            Response.Redirect("~/Membership/Default.aspx")
+        Else
+            lblErrorMsg.Text = "نام كاربري و رمز عبور صحيح نيست"
+        End If
+    End Sub
+    
+    
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
+        If Session("UserName") = Nothing Then
+            Menu1.Items(1).Enabled = False
+        Else
+            Menu1.Items(1).Enabled = True
+        End If
+    End Sub
+</script>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AmlakTak.ir - بنگاه معاملات املاک</title>
+    <style type="text/css">
+        <!--
+            a:link {
+	            text-decoration: none;
+            }
+            a:visited {
+	            text-decoration: none;
+            }
+            a:hover {
+	            text-decoration: none;
+				color:#0033CC;
+            }
+            a:active {
+	            text-decoration: none;
+            }
+        -->
+body {
+        font-family: Tahoma;
+        margin: 0;
+        font-size: 10pt;
+        background: #FFF;
+        }                     
+    </style>
+
+</head>
+
+<body>
+<SCRIPT language=javascript src="../Script/Farsi.js"></SCRIPT>    
+<form runat="server" id="form1">
+<table width="200" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td align="right">
+            <asp:Label ID="lblUserName" runat="server" ForeColor="Green"></asp:Label></td>
+    </tr>
+  <tr>
+    <td><table width="200" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><img src="images/newpsd-copy_07.jpg" width="188" height="45" /></td>
+        <td><img src="images/newpsd-copy_08.jpg" width="596" height="45" /></td>
+        <td><img src="images/newpsd-copy_09.jpg" width="186" height="45" /></td>
+      </tr>
+    </table>
+      <table width="200" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><img src="images/newpsd-copy_12.jpg" width="188" height="140" /></td>
+          <td><img src="images/newpsd-copy_13.jpg" width="596" height="140" /></td>
+          <td><img src="images/newpsd-copy_14.jpg" width="186" height="140" /></td>
+        </tr>
+      </table>
+      <table width="200" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><img src="images/newpsd-copy_17.jpg" width="188" height="33" /></td>
+          <td><img src="images/newpsd-copy_18.jpg" width="596" height="33" /></td>
+          <td><img src="images/newpsd-copy_19.jpg" width="186" height="33" /></td>
+        </tr>
+      </table>
+      <table width="970" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="188" valign="top" background="images/newpsd-copy_22.jpg"><img src="images/newpsd-copy_22.jpg" width="188" height="23" />
+            <table width="188" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td><img src="images/newpsd-copy_27.jpg" width="188" height="20" /></td>
+              </tr>
+              <tr>
+                <td align="center">
+                    <br />
+                    <table dir="rtl">
+                        <tr>
+                            <td>
+                                نام کاربری :</td>
+                            <td dir="ltr">
+                                <asp:TextBox ID="txtUsername" runat="server" Width="90px"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                کلمه عبور</td>
+                            <td dir="ltr">
+                                <asp:TextBox ID="txtPassword" runat="server" Width="90px" TextMode="Password"></asp:TextBox></td>
+                        </tr>
+                    </table>
+                    <asp:Button ID="btnEnter" runat="server" Text="ورود" Width="50px" OnClick="btnEnter_Click" ValidationGroup="Enter" /><br />
+                    <asp:Label ID="lblErrorMsg" runat="server" ForeColor="Red"></asp:Label><br />
+                </td>
+              </tr>
+              <tr>
+                <td><img src="images/newpsd-copy_38.jpg" width="188" height="21" /></td>
+              </tr>
+              <tr>
+                <td>
+                    <center>
+                        <br />
+                        <img src="images/Banner/T2.jpg" />
+                        <br />
+                        <img src="images/Banner/T3.jpg">
+                    </center>
+                </td>
+              </tr>
+            </table></td>
+          <td width="596" align="right" valign="top" dir="rtl">
+              <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+              </asp:ContentPlaceHolder>
+              <br />
+              <br />
+              <br />
+          </td>
+          <td width="186" valign="top" background="images/newpsd-copy_24.jpg"><img src="images/newpsd-copy_24.jpg" width="186" height="23" />
+            <table width="186" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td><img src="images/newpsd-copy_40.jpg" width="186" height="21" /></td>
+              </tr>
+              <tr>
+                <td align="center">
+                    <br />
+                    <asp:Menu ID="Menu1" runat="server" Height="227px">
+                        <Items>
+                            <asp:MenuItem NavigateUrl="~/Default.aspx" Text="صفحه اصلی" Value="صفحه اصلی"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Membership/Default.aspx" Text="صفحه کاربری" Value="صفحه کاربری">
+                            </asp:MenuItem>
+                            <asp:MenuItem Text="لیست املاک" Value="لیست املاک" NavigateUrl="~/AllAmlakList.aspx"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/AddUser.aspx" Text="ثبت نام در سایت" Value="ثبت نام در سایت">
+                            </asp:MenuItem>
+                            <asp:MenuItem Text="درباره ما" Value="درباره ما..." NavigateUrl="~/About.aspx"></asp:MenuItem>
+                            <asp:MenuItem Text="ارتباط با مدیریت" Value="ارتباط با ما" NavigateUrl="~/Contact.aspx"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Ads.aspx" Text="تبلیغات در سایت" Value="تبلیغات در سایت">
+                            </asp:MenuItem>
+                        </Items>
+                    </asp:Menu>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td><p>&nbsp;</p>
+                </td>
+              </tr>
+            </table></td>
+        </tr>
+      </table>
+      <table width="200" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><img src="images/newpsd-copy_48.jpg" width="188" height="27" /></td>
+          <td><img src="images/newpsd-copy_49.jpg" width="596" height="27" /></td>
+          <td><img src="images/newpsd-copy_50.jpg" width="186" height="27" /></td>
+        </tr>
+      </table>      </td>
+  </tr>
+</table>
+</form>
+</body>
+</html>
+

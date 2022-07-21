@@ -1,0 +1,146 @@
+﻿<%@ Master Language="VB" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<script runat="server">
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
+        If Session("IsAdmin") <> True Then Response.Redirect("Login.aspx")
+        'Page.Title = "سیستم مدیریت محتوا"
+    End Sub
+</script>
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AmlakTak.ir - سیستم مدیریت محتوا</title>
+<style type="text/css">
+body {
+        font-family: Tahoma;
+        margin: 0;
+        font-size: 10pt;
+        background: #FFF;
+        }                
+<!--
+ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-size: 8pt;
+        font-weight: bold;
+        }
+
+img {
+    border: none;
+}
+
+/*- Menu 3--------------------------- */
+
+#menu3 {
+        width: 150px;
+        margin: 10px;
+        border-style: solid solid none solid;
+        border-color: #BCD2E6;
+        border-size: 1px;
+        border-width: 1px;
+        }
+
+#menu3 li a {
+        height: 32px;
+          voice-family: "\"}\"";
+          voice-family: inherit;
+          height: 24px;
+        text-decoration: none;
+        }
+
+#menu3 li a:link, #menu3 li a:visited {
+        color: #8BADCF;
+        display: block;
+        background:  url(menu3.gif);
+        padding: 8px 0 0 10px;
+        }
+
+#menu3 li a:hover, #menu3 li #current { {
+        color: #627EB7;
+        background:  url(menu3.gif) 0 -32px;
+        padding: 8px 0 0 10px;
+        }
+-->
+</style>    
+</head>
+<body>
+<SCRIPT language=javascript src="../Script/Farsi.js"></SCRIPT>    
+    <form id="form1" runat="server">
+    <div style="text-align:center">
+    <br />
+<table width="495" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td valign="top"><table width="100%" height="150" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td background="images/header.jpg">&nbsp;</td>
+        </tr>
+      </table>
+        <table width="100" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="13" valign="top" background="images/d2.jpg"><img src="images/d2.jpg" width="14" height="10" /></td>
+            <td width="920" valign="top" bgcolor="#FFFFFF">
+            <br />
+            <table width="914" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="680" valign="top"><table width="680" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td colspan="3"><img src="images/cu.jpg" width="716" height="7" /></td>
+                  </tr>
+                  <tr>
+                    <td width="10" background="images/cl.jpg">&nbsp;</td>
+                    <td width="696" align="center">
+                        <div dir="rtl">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </div>
+                      </td>
+                    <td width="10" valign="top" background="images/cr.jpg">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3"><img src="images/cd.jpg" width="716" height="8" /></td>
+                  </tr>
+                </table>
+                  <p>&nbsp;</p>
+                  </td>
+                <td width="234" valign="top"><table width="188" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td colspan="3"><img src="images/bu.jpg" width="188" height="7" /></td>
+                  </tr>
+                  <tr>
+                    <td width="6" background="images/bl.jpg">&nbsp;</td>
+                    <td width="173" align="center">
+                    <div id="menu3">
+                        <ul>
+                            <!-- CSS Tabs -->
+                            <li><a href="../Default.aspx">نمایش سایت</a></li>
+                            <li><a href="default.aspx">بخش مدیریت</a></li>
+                            <li><a href="logout.Aspx">خروج</a></li>
+                        </ul>
+                    </div>
+                      </td>
+                    <td width="9" background="images/br.jpg">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3"><img src="images/bd.jpg" width="188" height="8" /></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table>
+            </td>
+            <td width="10" valign="top" background="images/d3.jpg"><img src="images/d3.jpg" width="15" height="13" /></td>
+          </tr>
+          <tr>
+            <td colspan="3"><img src="images/d1.jpg" width="943" height="15" /></td>
+          </tr>
+        </table>        </td>
+    </tr>
+  </table>        
+    </div>
+    </form>
+</body>
+</html>

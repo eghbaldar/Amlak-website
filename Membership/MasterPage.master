@@ -1,0 +1,174 @@
+﻿<%@ Master Language="VB"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<script runat="server">
+
+    Dim objCon As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AmlakConnectionString").ToString)
+    Dim dst As DataSet = New DataSet()
+    Dim UserName As String
+    
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
+        If Session("UserName") = Nothing Then
+            Response.Redirect("../Default.aspx")
+        End If
+
+        UserName = Session("UserName").ToString()
+
+        If Page.IsPostBack = False Then
+
+            Dim dat As SqlDataAdapter = New SqlDataAdapter("SELECT * FROM tblUser WHERE Username=@Username", objCon)
+            dat.SelectCommand.CommandType = CommandType.Text
+            dat.SelectCommand.Parameters.AddWithValue("@Username", UserName)
+            dat.Fill(dst, "tblUser")
+            Dim dr As DataRow = dst.Tables("tblUser").Rows(0)
+            
+            'Response.Write(Session("UserName").ToString())
+            'Response.Write("<br />")
+            'Response.Write(dr("AddressEmail").ToString())
+        End If
+    End Sub
+    
+    
+</script>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AmlakTak.ir - بنگاه معاملات املاک</title>
+    <style type="text/css">
+        <!--
+            a:link {
+	            text-decoration: none;
+            }
+            a:visited {
+	            text-decoration: none;
+            }
+            a:hover {
+	            text-decoration: none;
+				color:#0033CC;
+            }
+            a:active {
+	            text-decoration: none;
+            }
+        -->
+body {
+        font-family: Tahoma;
+        margin: 0;
+        font-size: 10pt;
+        background: #FFF;
+        }                     
+    </style>
+</head>
+
+<body>
+<SCRIPT language=javascript src="../Script/Farsi.js"></SCRIPT>    
+<form runat="server" id="form1">
+<table width="200" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="200" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><img src="../images/newpsd-copy_07.jpg" width="188" height="45" /></td>
+        <td><img src="../images/newpsd-copy_08.jpg" width="596" height="45" /></td>
+        <td><img src="../images/newpsd-copy_09.jpg" width="186" height="45" /></td>
+      </tr>
+    </table>
+      <table width="200" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><img src="../images/newpsd-copy_12.jpg" width="188" height="140" /></td>
+          <td><img src="../images/newpsd-copy_13.jpg" width="596" height="140" /></td>
+          <td><img src="../images/newpsd-copy_14.jpg" width="186" height="140" /></td>
+        </tr>
+      </table>
+      <table width="200" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><img src="../images/newpsd-copy_17.jpg" width="188" height="33" /></td>
+          <td><img src="../images/newpsd-copy_18.jpg" width="596" height="33" /></td>
+          <td><img src="../images/newpsd-copy_19.jpg" width="186" height="33" /></td>
+        </tr>
+      </table>
+      <table width="970" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="188" valign="top" background="../images/newpsd-copy_22.jpg"><img src="../images/newpsd-copy_22.jpg" width="188" height="23" />
+            <table width="188" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td><img src="../images/newpsd-copy_38.jpg" width="188" height="21" /></td>
+              </tr>
+              <tr>
+                <td>
+                    <center>
+                        <br />
+                        <asp:Image ID="Image1" runat="server" ImageUrl="~/images/Banner/T2.jpg" />
+                        <br />
+                        <asp:ImageMap ID="ImageMap1" runat="server" ImageUrl="~/images/Banner/T3.jpg">
+                        </asp:ImageMap>
+                    </center>
+                </td>
+              </tr>
+            </table></td>
+          <td width="596"   align="right" valign="top" dir="rtl">
+              <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+              </asp:ContentPlaceHolder>
+          </td>
+          <td width="186" valign="top" background="../images/newpsd-copy_24.jpg"><img src="../images/newpsd-copy_24.jpg" width="186" height="23" />
+            <table width="186" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td><img src="../images/newpsd-copy_40.jpg" width="186" height="21" /></td>
+              </tr>
+              <tr>
+                <td style="text-align: center">
+                    <br />
+                    <asp:Menu ID="Menu2" runat="server" Height="250px">
+                        <Items>
+                            <asp:MenuItem NavigateUrl="~/Default.aspx" Text="صفحه اول سایت" Value="صفحه اول سایت">
+                            </asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Membership/Default.aspx" Text="صفحه اصلی کاریری" Value="صفحه اصلی"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Membership/AmlakList.aspx" Text="لیست املاک شخصی" Value="لیست املاک">
+                            </asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Membership/AllAmlakList.aspx" Text="لیست کلیه املاک سایت"
+                                Value="لیست کلیه املاک سایت"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Membership/EditProfile.aspx" Text="اصلاح مشخصات" Value="اصلاح مشخصات">
+                            </asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Membership/MsgList.aspx" Text="لیست پیامها" Value="لیست پیامها">
+                            </asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Membership/Contact.aspx" Text="ارتباط با مدیریت" Value="ارتباط با مدیریت">
+                            </asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Membership/Logout.aspx" Text="خروج" Value="خروج"></asp:MenuItem>
+                        </Items>
+                    </asp:Menu>
+                    <br />
+                </td>
+              </tr>
+              <tr>
+                <td><img src="../images/newpsd-copy_29.jpg" width="186" height="20" /></td>
+              </tr>
+              <tr>
+                <td style="text-align: center">
+                    <br />
+                    <asp:Menu ID="Menu1" runat="server" Height="102px">
+                        <Items>
+                            <asp:MenuItem NavigateUrl="~/Membership/AddApar.aspx" Text="آپارتمان" Value="آپارتمان"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Membership/AddVila.aspx" Text="ویلا" Value="ویلا"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Membership/AddMagh.aspx" Text="مغازه" Value="مغازه"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Membership/AddZamin.aspx" Text="زمین" Value="زمین"></asp:MenuItem>
+                        </Items>
+                    </asp:Menu>
+                    <br />
+                    </td>
+              </tr>
+            </table></td>
+        </tr>
+      </table>
+      <table width="200" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><img src="../images/newpsd-copy_48.jpg" width="188" height="27" /></td>
+          <td><img src="../images/newpsd-copy_49.jpg" width="596" height="27" /></td>
+          <td><img src="../images/newpsd-copy_50.jpg" width="186" height="27" /></td>
+        </tr>
+      </table>      </td>
+  </tr>
+</table>
+</form>
+</body>
+</html>
+
